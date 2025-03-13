@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:39:53 by zaissi            #+#    #+#             */
-/*   Updated: 2025/03/11 21:45:35 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/03/06 05:33:04 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,45 +31,30 @@ typedef	struct	s_philo
 	pthread_mutex_t				*l_fork;
 	pthread_mutex_t				*r_fork;
 	struct s_data				*data;
-	uint64_t					eat_time;
-	pthread_mutex_t				eat_mutex;
-	uint64_t					old;
-	// pthread_mutex_t				eat_mutex1;
+	u_int64_t					eat_time;
+	// pthread_mutex_t				eat_mutex;
 	pthread_t					thread;
 }				t_philo;
 
 typedef struct	s_data
 {
 	int					num_philo;
-	uint64_t					time_die;
+	int					time_die;
 	int					time_eat;
 	int					time_sleep;
 	int					num_eat;
-	int					stop;
-	int					is_die;
 	t_philo				*philo;
-	uint64_t			start;
-	struct timeval		start_time;
+	unsigned long long	start;
 	pthread_mutex_t		*forks;
-	pthread_mutex_t		write_m;
-	pthread_mutex_t		protect;
-	pthread_mutex_t		stop_protect;
 }				t_data;
 
 
 
 int		ft_atoi(const char *str);
-uint64_t	get_time();
+
 void	error();
 void    ft_exit(int i);
 void    *ft_malloc(size_t size);
-int     checker(int *flag, t_data *ptr);
-void    print_msg(t_data *ptr, t_philo *phil, char *str, int *flag);
-int	ft_strcmp(const char *s1, const char *s2);
-int	check_is_die(t_philo **ptr);
-
-
-int	ft_usleep(useconds_t time);
 
 #endif
 

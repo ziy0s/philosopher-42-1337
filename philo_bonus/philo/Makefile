@@ -2,11 +2,11 @@ NAME= philo
 
 CC= cc
 
-MDR= main.c ft_atoi.c ft_alloc.c print.c ft_strncmp.c
+MDR= main.c ft_atoi.c ft_alloc.c
 
 OBJ=$(MDR:%.c=%.o)
 
-CFLAG= -Wall -Wextra -Werror -pthread -g
+CFLAG= -Wall -Wextra -Werror -pthread
 
 all: $(NAME)
 

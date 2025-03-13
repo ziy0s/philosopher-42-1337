@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:04:17 by zaissi            #+#    #+#             */
-/*   Updated: 2025/03/08 17:24:34 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/02/28 21:19:02 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,4 @@ void    *ft_malloc(size_t size)
 				ft_exit(1);
 		ft_free(ptr, 0);
 		return (ptr);
-}
-
-// int	ft_usleep(useconds_t time)
-// {
-// 	u_int64_t	start;
-
-// 	start = get_time();
-// 	while ((get_time() - start) < time)
-// 		usleep(time / 10);
-// 	return (0);
-// }
-
-int	ft_usleep(useconds_t time)
-{
-	u_int64_t	start;
-
-	start = get_time();
-	while ((get_time() - start) < time)
-		usleep(time / 10);
-	return (0);
 }
