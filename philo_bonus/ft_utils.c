@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 22:14:27 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/11 18:28:35 by zaissi           ###   ########.fr       */
+/*   Created: 2025/04/12 21:02:03 by zaissi            #+#    #+#             */
+/*   Updated: 2025/04/13 17:32:58 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-int	print_msg(t_data *ptr, t_philo *phil, char *str)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	uint64_t	time;
+	size_t	i;
 
-	pthread_mutex_lock(&ptr->write_m);
-	if (!ft_strcmp("died", str))
-		time = (get_time() - ptr->start) - 1;
-	else
-		time = get_time() - ptr->start;
-	printf("%llu\t%d %s\n", time, phil->id, str);
-	if (!ft_strcmp("died", str))
-		return (0);
-	pthread_mutex_unlock(&ptr->write_m);
-	return (1);
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	if (s1[i] || s2[i])
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return (0);
 }

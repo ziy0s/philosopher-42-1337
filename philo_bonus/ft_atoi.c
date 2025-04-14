@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 21:19:33 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/10 20:54:39 by zaissi           ###   ########.fr       */
+/*   Created: 2025/04/12 21:00:27 by zaissi            #+#    #+#             */
+/*   Updated: 2025/04/12 21:01:05 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static int	ft_isdigit(int c)
 {

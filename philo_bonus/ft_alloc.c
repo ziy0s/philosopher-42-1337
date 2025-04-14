@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/22 16:04:17 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/13 19:00:31 by zaissi           ###   ########.fr       */
+/*   Created: 2025/04/12 17:48:03 by zaissi            #+#    #+#             */
+/*   Updated: 2025/04/13 18:43:22 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 #define MAX 2000000
 
 static void	my_ft_free(void *ptr, int flag)
@@ -32,29 +32,12 @@ static void	my_ft_free(void *ptr, int flag)
 		lst[i++] = ptr;
 }
 
-int	ft_exit(int i, t_data *ptr)
+int	ft_exit(int i)
 {
-	int	j;
-
-	j = 1;
-	if (ptr)
-	{
-		pthread_mutex_destroy(&ptr->write_m);
-		pthread_mutex_destroy(&ptr->protect);
-		pthread_mutex_destroy(&ptr->stop_protect);
-		while (j <= ptr->num_philo)
-		{
-			pthread_mutex_destroy(ptr->philo[j].l_fork);
-			pthread_mutex_destroy(ptr->philo[j].r_fork);
-			pthread_mutex_destroy(&ptr->philo[j].eat_mutex);
-			pthread_mutex_destroy(&ptr->forks[j]);
-			j++;
-		}
-	}
 	my_ft_free(NULL, i);
 	if (i)
 		write(2, "Error\n", 7);
-	return (i);
+	exit (i);
 }
 
 void	*ft_malloc(size_t size)
@@ -63,7 +46,7 @@ void	*ft_malloc(size_t size)
 
 	ptr = malloc(size);
 	if (!ptr)
-		return (ft_exit(1, NULL), NULL);
+		return (ft_exit(1), NULL);
 	my_ft_free(ptr, 0);
 	return (ptr);
 }
