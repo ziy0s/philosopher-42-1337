@@ -1,14 +1,14 @@
-NAME = philo_bonus
+NAME= philo_bonus
 
-CC = cc
+CC= cc
 
-CFLAG = -Wall -Wextra -Werror
+MDR= main.c ft_time.c ft_simulation.c ft_output.c ft_init.c ft_atoi.c ft_alloc.c ft_utils.c
 
-FILE = main.c ft_atoi.c ft_alloc.c ft_utils.c print.c
+OBJ=$(MDR:%.c=%.o)
 
-OBJ = $(FILE:%.c=%.o)
+CFLAG= -Wall -Wextra -Werror -pthread -g
 
-all: $(NAME)
+all: $(NAME) clean
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAG) $(OBJ) -o $(NAME)
@@ -20,6 +20,6 @@ clean:
 	rm -rif $(OBJ)
 
 fclean: clean
-	rm -rif $(NAME)
+	rm $(NAME)
 
 re: fclean all

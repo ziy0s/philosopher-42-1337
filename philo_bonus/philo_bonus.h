@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/12 17:49:55 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/13 19:29:24 by zaissi           ###   ########.fr       */
+/*   Created: 2025/04/25 05:00:09 by zaissi            #+#    #+#             */
+/*   Updated: 2025/04/25 23:46:24 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,52 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
-#include <sys/time.h>
+# include <pthread.h>
 # include <semaphore.h>
-# include <signal.h>
+# include <limits.h>
+# include <sys/time.h>
 
-typedef struct  s_philo
+typedef struct s_philo
 {
-	int     		id;
-	int             num_eat;
-	pid_t           pid;
-	struct s_data   *data;
-	sem_t			l_fork;
-	sem_t			r_fork;
-}               t_philo;
+	int				id;
+	int				left_fork;
+	int				right_fork;
+	int				pid;
+	int				num_eats;
+	time_t			eat_time;
+	struct s_data	*data;
+	time_t			last_meal;
+}				t_philo;
 
-typedef struct  s_data
+typedef struct s_data
 {
-	int			num_philo;
-	int			time_die;
-	int			time_eat;
-	int			time_sleep;
-	int			num_eat;
-	t_philo		*philo;
-	uint64_t	time;
-	uint64_t	time_start;
-	int			start;
-	sem_t		*write;
-	sem_t		*forks;
-}               t_data;
+	int			num_philos;
+	int			num_meals;
+	time_t		time_to_die;
+	time_t		time_to_eat;
+	time_t		time_to_sleep;
+	time_t		start_time;
+	sem_t		*sem_forks;
+	sem_t		*sem_print;
+	sem_t		*sem_meals;
+	sem_t		*sem_death;
+	sem_t		*sem_stop;
+	t_philo		**philos;
+}				t_data;
 
+t_data	*init_data(char *v[]);
+int		ft_atoi(const char *str);
+int		ft_strlen(const char *str);
+int		ft_intsize(int nbr);
 void	*ft_malloc(size_t size);
-int	ft_atoi(const char *str);
-int	ft_exit(int i);
-int	print_msg(t_data *ptr, t_philo *phil, char *str);
-int	ft_strcmp(const char *s1, const char *s2);
-uint64_t	get_time(void);
-int	ft_usleep(useconds_t time);
+void	print_message(t_philo *philo, char *message);
+void	get_forks(t_philo *philo);
+void	ft_usleep(time_t time);
+void	ft_exit(int status);
+char *ft_itoa(pid_t nbr);
+char    *ft_strjoin(char const *s1, char const *s2);
+// void *monitored(void *arg);
+
+time_t	get_time(void);
 
 #endif

@@ -5,19 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/12 17:48:03 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/13 18:43:22 by zaissi           ###   ########.fr       */
+/*   Created: 2025/02/22 16:04:17 by zaissi            #+#    #+#             */
+/*   Updated: 2025/04/25 22:09:35 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#define MAX 2000000
 
-static void	my_ft_free(void *ptr, int flag)
+static void	ft_free(void *ptr, int flag)
 {
-	static void		*lst[MAX];
-	static int		i;
-	int				j;
+	static void	*lst[INT_MAX];
+	static int	i;
+	int			j;
 
 	if (flag)
 	{
@@ -32,12 +31,12 @@ static void	my_ft_free(void *ptr, int flag)
 		lst[i++] = ptr;
 }
 
-int	ft_exit(int i)
+void	ft_exit(int i)
 {
-	my_ft_free(NULL, i);
+	ft_free(NULL, i);
 	if (i)
 		write(2, "Error\n", 7);
-	exit (i);
+	exit(i);
 }
 
 void	*ft_malloc(size_t size)
@@ -46,17 +45,7 @@ void	*ft_malloc(size_t size)
 
 	ptr = malloc(size);
 	if (!ptr)
-		return (ft_exit(1), NULL);
-	my_ft_free(ptr, 0);
+		ft_exit(1);
+	ft_free(ptr, 0);
 	return (ptr);
-}
-
-int	ft_usleep(useconds_t time)
-{
-	u_int64_t	start;
-
-	start = get_time();
-	while ((get_time() - start) < time)
-		usleep(time / 10);
-	return (0);
 }
