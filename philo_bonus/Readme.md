@@ -115,12 +115,12 @@ The IPC (Inter-Process Communication) is a set of methods for processes to :
 ##### memset(): 
 it's accept a void pointer `void *b` and intiger `int c` and unsigned long as last args `size_t len`, it's writes len bytes of value c to string b. It's return a void pointer. **I don't use it in my project**.
 ```C
-												void *memset(void *b, int c, size_t len);
-																   |      |			  |
-						string will be write on it_________________|      |			  |_______________ the number of byte it will
-																		  |								write it by.
-																		  |
-																   source of bytes
+					void *memset(void *b, int c, size_t len);
+							   |      |	     |
+	    	string will be write on it_________________|      |	     |_______________ the number of byte it will
+  								  |				write it by.
+								  |
+						          source of bytes
 ```
 ##### printf():
 utility formats and prints its arguments. **I use it to print the output on screen**.
@@ -135,9 +135,9 @@ it write data by byte len on fd. **I use it to write errors on stderr '2'**.
 ##### kill():
 it function sends a signal to the processes specified by the pid. **I use it to send SIGKILL '9' to child processes to kill them**.
 ```C
-										int	kill(pid_t pid, int sig);
-														|		 |
-			PID of the process to send signal to it ____|		 |______________ integer between 1 and 31
+					int	kill(pid_t pid, int sig);
+							    |	     |
+		PID of the process to send signal to it ____|	     |______________ integer between 1 and 31
 ```
 + Signals:
 	| signal | value | macros |
@@ -156,12 +156,12 @@ function terminate a process with status code. **I use it to exit from my progra
 Creates a new thread and starts execution. Takes a function pointer that will be executed in the new thread. [here](../philo/Readme.md) **I use it to create a thread call it monitor to monitor all processes (philosophers) if any philo die the program will be terminated**.
 ```C
 				int	pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine)(void *), void *arg);
-												|							 |					|						 |
-A pointer to a pthread_t 						|							 |					|						 |___________ void to arg it will
-variable where the function will				|							 |					|								pass it to new thread.
-store the identifier of the 					|							 |					|__ pointer to function, it will be
-newly created thread. This _____________________|							 |					run it by the new thread.
-identifier can be used for													 |
+								    |				 |		    |			     |
+A pointer to a pthread_t 					    |				 |		    |			     |___________ void to arg it will
+variable where the function will				    |				 |		    |					   pass it to new thread.
+store the identifier of the 					    |				 |		    |__ pointer to function, it will be
+newly created thread. This 	____________________________________|				 |			 run it by the new thread.
+identifier can be used for									 |
 subsequent operations on the					A pointer to a pthread_attr_t structure that specifies
 thread, such as joining or canceling.			attributes for the new thread, such as stack size,
 												scheduling policy, and detach state. If set to NULL,
@@ -173,16 +173,16 @@ it return 0 in success and -1 in error .
 this function used to indicate that a thread's resources can be **automatically reclaimed** by the system upon its termination, without the need for another thread to call pthread_join(). if we don't use it or pthread_join(), its resources remain allocated, leading to a **<mark>memory leak</mark>**.
 ```C
 							int pthread_detach(pthread_t thread);
-															|_________ pthread_t variable when store the identifier about the thread.
+											|_________ pthread_t variable when store the identifier about the thread.
 ```
 return 0 in success and -1 in error.
 ##### pthread_join():
 Waits for the specified thread to terminate. It blocks the calling thread until the target thread finishes.
 ```C
-							int pthread_join(pthread_t thread, void **value_ptr);
-														  |				   |
-		pthread_t variable when							  |				   |___________ the return value from the thread
-		store the identifier about the thread ____________|
+					int pthread_join(pthread_t thread, void **value_ptr);
+								      |		      |
+		pthread_t variable when				      |		      |___________ the return value from the thread
+		store the identifier about the thread ________________|
 ```
 return 0 in success and -1 in error.
 ##### usleep():
@@ -192,13 +192,13 @@ return 0 in success and -1 in error.
 ##### waitpid():
 is a system call that allows a parent process to wait for and retrieve the termination status of a specific child process. It's particularly useful when a parent has multiple child processes and needs to wait for a particular one to finish.
 ```C
-								pid_t waitpid(pid_t pid, int *status, int options);
-			Specifies which child					 |			 |			 |
-			process to wait for	_____________________|			 |			 |_____________ Modifiers that affect the behavior of waitpid().
-																 |									*we use 0 for default behavior.*
-																 |
-											Pointer to an integer where the exit status
-													of the child is stored.
+						pid_t waitpid(pid_t pid, int *status, int options);
+			Specifies which child			     |		|	     |
+			process to wait for	_____________________|		|	     |_____________ Modifiers that affect the behavior of waitpid().
+										|				*we use 0 for default behavior.*
+										|
+								Pointer to an integer where the exit status
+									of the child is stored.
 ```
 - Key Macros for Analyzing `status`:
 	After waitpid() returns, you can use the following macros to interpret the child's termination status:
@@ -214,25 +214,25 @@ is a system call that allows a parent process to wait for and retrieve the termi
 is used to create or open a named POSIX semaphore, which is a synchronization mechanism that can be shared between processes. This is particularly useful for coordinating access to shared resources in multi-process applications.
 ```C
 						sem_t *sem_open(const char *name, int oflag, mode_t mode, unsigned int value);
-													 |	        |			  |					 |
-	A string that names the semaphore.				 |			|			  |					 |
-	It must begin with a slash (/) and contain ______|			|             |					 |
-	no additional slashes.										|       	  |			The initial value
-																|			  |			for the semaphore.
-																|			  |
-								Flags that determine the _______|			  |
-									behavior of the function.				  |
-																	The permissions to
-																	be applied to the semaphore
+									     |	        |	     |			 |
+	A string that names the semaphore.				     |		|	     |			 |
+	It must begin with a slash (/) and contain __________________________|		|            |			 |
+	no additional slashes.								|            |		  The initial value
+											|	     |		  for the semaphore.
+											|	     |
+							Flags that determine the _______|	     |
+							behavior of the function.		     |
+												The permissions to
+												be applied to the semaphore
 ```
 it return the semaphore descriptor to the calling process if success, otherwise return SEM_FAILED on error.
 ##### sem_close():
 Closes the semaphore descriptor in the **calling process**.(calling process is the main process it create process and semaphore)
 ```C
 						int	sem_close(sem_t *sem);
-											  |
-											  |
-											  |___________________ Indicates the semaphore to be closed.
+									  |
+									  |
+									  |___________________ Indicates the semaphore to be closed.
 ```
 Upon successful completion, 0 is returned. Otherwise, -1 is returned and errno is set to indicate the error.
 #### sem_post():
@@ -247,24 +247,24 @@ first we need to create a two struct, one for all data shared by each philosophe
 ```C
 		typedef struct s_philo
 		{
-			int				id;			// id for each philo
-			int				pid;		// pid for each philo
-			int				num_eats;	// number of eat
-			int64_t			eat_time;	// the last time to eat
+			int		id;		// id for each philo
+			int		pid;		// pid for each philo
+			int		num_eats;	// number of eat
+			int64_t		eat_time;	// the last time to eat
 			struct s_data	*data;		// for shared data
-		}				t_philo;
+		}		t_philo;
 
 		typedef struct s_data
 		{
-			int			num_philos;		// number of philosophers
-			int			num_meals;		// number of each philo should eat
-			int64_t		time_to_die;	// time to die
-			int64_t		time_to_eat;	// time to eat
-			int64_t		time_to_sleep;	// time to sleep										   |------> fork1
-			int64_t		start_time;		// time when program starting							   |------> fork2
-			sem_t		**sem_forks;	// pointer to each fork for each philo ; 5 philos => fork -|------> fork3
-			sem_t		*sem_print;		// share semaphore for manage the output				   |------> fork4
-			sem_t		*sem_stop;		// share semaphore for stop simulation					   |------> fork5
+			int		num_philos;		// number of philosophers
+			int		num_meals;		// number of each philo should eat
+			int64_t		time_to_die;		// time to die
+			int64_t		time_to_eat;		// time to eat
+			int64_t		time_to_sleep;		// time to sleep					   |------> fork1
+			int64_t		start_time;		// time when program starting				   |------> fork2
+			sem_t		**sem_forks;		// pointer to each fork for each philo ; 5 philos => fork -|------> fork3
+			sem_t		*sem_print;		// share semaphore for manage the output		   |------> fork4
+			sem_t		*sem_stop;		// share semaphore for stop simulation			|------> fork5
 			t_philo		**philos;		// refernce for each philosopher
 		}				t_data;
 ```
