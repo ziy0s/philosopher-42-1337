@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:04:17 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/25 22:09:35 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/04/30 17:09:25 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,27 @@ static void	ft_free(void *ptr, int flag)
 	}
 	else
 		lst[i++] = ptr;
+}
+
+void	cleanup(t_data *data, int s)
+{
+	int	i;
+
+	if (!data)
+		ft_exit(1);
+	sem_post(data->sem_stop);
+	sem_close(data->sem_print);
+	sem_unlink(data->print);
+	sem_close(data->sem_stop);
+	sem_unlink(data->stop);
+	i = 0;
+	while (i < data->num_philos)
+	{
+		sem_close(data->sem_forks[i]);
+		sem_unlink(data->forks[i]);
+		i++;
+	}
+	ft_exit(s);
 }
 
 void	ft_exit(int i)

@@ -1,31 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_time.c                                          :+:      :+:    :+:   */
+/*   ft_utils_.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/25 06:31:26 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/30 15:17:22 by zaissi           ###   ########.fr       */
+/*   Created: 2025/04/30 13:05:58 by zaissi            #+#    #+#             */
+/*   Updated: 2025/04/30 13:07:13 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int64_t	get_time(void)
+int	ft_intsize(int nbr)
 {
-	struct timeval	now;
+	int	size;
 
-	gettimeofday(&now, NULL);
-	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
+	size = 0;
+	while (nbr)
+	{
+		size++;
+		nbr /= 10;
+	}
+	size++;
+	return (size);
 }
 
-void	ft_usleep(int64_t time)
+char	*ft_itoa(pid_t nbr)
 {
-	int64_t	start;
+	char	*str;
+	int		i;
+	int		sign;
 
-	start = get_time();
-	while (get_time() - start < time)
-		usleep(100);
-	return ;
+	sign = 1;
+	if (nbr < 0)
+		sign = -1;
+	str = ft_malloc(sizeof(char) * (ft_intsize(nbr) + 1));
+	i = 0;
+	if (nbr < 0)
+		str[i++] = '-';
+	if (nbr == 0)
+		str[i++] = '0';
+	while (nbr)
+	{
+		str[i++] = (nbr % 10) * sign + '0';
+		nbr /= 10;
+	}
+	str[i] = '\0';
+	return (str);
 }
