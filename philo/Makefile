@@ -24,4 +24,4 @@ fclean: clean
 
 re: fclean all
 
-# -fsanitize=address
+#  -g -fsanitize=address
