@@ -104,7 +104,7 @@ The IPC (Inter-Process Communication) is a set of methods for processes to :
 		[source](https://www.geeksforgeeks.org/measure-execution-time-with-high-precision-in-c-c/)
 		in [subject PDF](../philosopher_sub.pdf) they want time in milliseconds, so we need to learn how to get it by gettimeofday function, we know gettimeofday() modifie in the timeval struct and put seconds in tv_sec and microseconds in tv_usec, so
 		```
-		seconds			-[ x 1000]->	milliseconds
+		seconds		-[ x 1000]->	milliseconds
 		microseconds	-[ / 1000]->	milliseconds
 		```
 		[source](https://stackoverflow.com/questions/10192903/time-in-milliseconds-in-c)
