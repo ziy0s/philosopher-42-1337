@@ -284,17 +284,7 @@ then we need to handler the user input, the program it should accept four or fiv
 - We need to add one more thread in each child process to manager it. If some philo is die. And one more thread in the main process for stoping simulation if anything goes wrong.
 ##### Visualizer:
 - If the number of philosopher is 4:
-```
-										  PROCESSE
-	 PROCESSE1		 PROCESSE2			____________			PROCESSE3		   PROCESSE4
-		-------------------------------|	main	|------------------------------------
-		|				|			   --------------			   |					|
-	----------		----------				 ||				 	----------			----------
-	| philo1 |		| philo2 |		   		 ||					| philo3 |			| philo4 |
-	----------		----------			  ___||___				----------			----------
-	 |		|		  |  	|			 |		  |			     |       |		  	 |       |
- main_thr  mon_thr main_thr  mon_thr   main_thr  mon_thr 	  main_thr  mon_thr	 main_thr  mon_thr
-```
+![Visualizer](../.img/Visualizer.png)
 - In the end or anything goes wrong, we need to close semaphores and unlink it and free the memory allocated.
 ```C
 void	cleanup(t_data *data, int s)
