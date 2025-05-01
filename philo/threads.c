@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:26:22 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/11 18:24:59 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/01 15:06:25 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	*eating(void *arg)
 	ptr = (t_philo *)arg;
 	while (1)
 	{
-		pthread_mutex_lock(&ptr->data->stop_protect);
-		if (ptr->data->is_die)
+		pthread_mutex_lock(&ptr->data->protect);
+		if (ptr->data->stop)
 		{
-			pthread_mutex_unlock(&ptr->data->stop_protect);
+			pthread_mutex_unlock(&ptr->data->protect);
 			break ;
 		}
-		pthread_mutex_unlock(&ptr->data->stop_protect);
+		pthread_mutex_unlock(&ptr->data->protect);
 		if (ptr->data->num_eat != -1 && ptr->num_eat >= ptr->data->num_eat)
 			break ;
 		git_fork(ptr);
@@ -34,22 +34,22 @@ void	*eating(void *arg)
 	return (NULL);
 }
 
-void	if_dead(t_data *ptr, int i)
+static void	if_dead(t_data *ptr, int i)
 {
-	pthread_mutex_lock(&ptr->stop_protect);
-	ptr->is_die = 1;
-	pthread_mutex_unlock(&ptr->stop_protect);
+	pthread_mutex_lock(&ptr->protect);
+	ptr->stop = 1;
+	pthread_mutex_unlock(&ptr->protect);
 	print_msg(ptr, &ptr->philo[i], "died");
 	pthread_mutex_unlock(&ptr->philo[i].eat_mutex);
 }
 
-int	all_eat(t_data *ptr, int all)
+static int	all_eat(t_data *ptr, int all)
 {
 	if (ptr->num_eat != -1 && all)
 	{
-		pthread_mutex_lock(&ptr->stop_protect);
-		ptr->is_die = 1;
-		pthread_mutex_unlock(&ptr->stop_protect);
+		pthread_mutex_lock(&ptr->protect);
+		ptr->stop = 1;
+		pthread_mutex_unlock(&ptr->protect);
 		return (1);
 	}
 	else
@@ -101,7 +101,7 @@ int	creat_threads(t_data **tmp)
 	if (pthread_create(&monitor, NULL, &monitoring, ptr) != 0)
 		return (1);
 	pthread_join(monitor, NULL);
-	if (ptr->is_die)
+	if (ptr->stop)
 		return (0);
 	i = 0;
 	while (i < ptr->num_philo)

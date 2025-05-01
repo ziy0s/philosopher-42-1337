@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:39:53 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/12 21:17:22 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/01 15:01:51 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_philo
 	struct s_data				*data;
 	uint64_t					eat_time;
 	pthread_mutex_t				eat_mutex;
-	uint64_t					old;
 }				t_philo;
 
 typedef struct s_data
@@ -38,14 +37,13 @@ typedef struct s_data
 	uint64_t			time_die;
 	int					time_eat;
 	int					time_sleep;
-	int					num_eat; // -1
-	int					is_die;
+	int					num_eat;
+	int					stop;
 	t_philo				*philo;
 	uint64_t			start;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		write_m;
 	pthread_mutex_t		protect;
-	pthread_mutex_t		stop_protect;
 }				t_data;
 
 int			ft_atoi(const char *str);

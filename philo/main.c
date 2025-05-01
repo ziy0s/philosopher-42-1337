@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:39:03 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/30 17:36:12 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/01 15:01:45 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	args(char *v[], t_data **ptr)
 	if (!(*ptr)->forks)
 		return (1);
 	(*ptr)->start = get_time();
-	(*ptr)->is_die = 0;
+	(*ptr)->stop = 0;
 	if (v[5])
 	{
 		(*ptr)->num_eat = ft_atoi(v[5]);
@@ -67,7 +67,6 @@ void	init_philo(t_data	**ptr)
 		tmp->philo[i].r_fork = &tmp->forks[(i + 1) % tmp->num_philo];
 		tmp->philo[i].data = tmp;
 		tmp->philo[i].num_eat = 0;
-		tmp->philo[i].old = -1;
 		pthread_mutex_init(&tmp->philo[i].eat_mutex, NULL);
 		tmp->philo[i].eat_time = get_time();
 		i++;
@@ -107,9 +106,8 @@ int	main(int c, char *v[])
 			return (1);
 	pthread_mutex_init(&ptr->write_m, NULL);
 	pthread_mutex_init(&ptr->protect, NULL);
-	pthread_mutex_init(&ptr->stop_protect, NULL);
 	init_philo(&ptr);
 	if (creat_threads(&ptr) == 1)
 		return (ft_exit(1, ptr));
-	return (0);
+	return (ft_exit(0, ptr));
 }

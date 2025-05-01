@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:04:17 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/13 19:00:31 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/01 15:01:34 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ int	ft_exit(int i, t_data *ptr)
 {
 	int	j;
 
-	j = 1;
+	j = 0;
 	if (ptr)
 	{
 		pthread_mutex_destroy(&ptr->write_m);
 		pthread_mutex_destroy(&ptr->protect);
-		pthread_mutex_destroy(&ptr->stop_protect);
-		while (j <= ptr->num_philo)
+		while (j < ptr->num_philo)
 		{
 			pthread_mutex_destroy(ptr->philo[j].l_fork);
 			pthread_mutex_destroy(ptr->philo[j].r_fork);

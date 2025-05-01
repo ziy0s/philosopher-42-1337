@@ -23,5 +23,3 @@ fclean: clean
 	rm -rif $(NAME)
 
 re: fclean all
-
-#  -g -fsanitize=address
