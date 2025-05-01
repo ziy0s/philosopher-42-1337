@@ -1,10 +1,12 @@
 # PHILOSOPHER [Mandatory](../philosopher_sub.pdf)
 
+##### 📍❗️ I strongly advise against simply taking this repository. understanding it, and then pushing it. At the very least, try to write something of your own befor considering that. Use this repository as a reference only, nothing more ❗️📍
+
 ## TASKS
 
-> #### 1. What we should to do ? [ℹ️](#null)
-> #### 2. Learn [ℹ️](#null)
-> #### 3. Program work strategy and start coding ;) [ℹ️](#null)
+> #### 1. What we should to do ? [ℹ️](#1-what-we-should-to-do-)
+> #### 2. Learn [ℹ️](#2-learn)
+> #### 3. Program work strategy and start coding ;) [ℹ️](#3-program-work-strategy-and-start-coding-)
 
 ## 1. What we should to do ?
 first we need to know what we should to do it , we can't work without this !.
@@ -298,4 +300,4 @@ Main Thread: wait all thread to finish
 Monitor Thread: chack if any reason for stop simulation
 Thread X: philo X, he take his fork and then checks if the fork next to him is free, if not it put him fork, if it free he start eating than sleeping than thinking, and update him info like number of meals if user put it.
 
-### good bay, happy coding ;)
+### good bay, happy coding ;) from ziyos [zaissi]
