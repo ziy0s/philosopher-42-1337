@@ -70,16 +70,16 @@ ulimit -u          # max user processes (threads count too)
 - The function responsible for creating a new thread is `pthread_create()`
 ```C
 				int	pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine)(void *), void *arg);
-												|							 |					|						 |
-A pointer to a pthread_t 						|							 |					|						 |___________ void to arg it will
-variable where the function will				|							 |					|								pass it to new thread.
-store the identifier of the 					|							 |					|__ pointer to function, it will be
-newly created thread. This _____________________|							 |					run it by the new thread.
-identifier can be used for													 |
-subsequent operations on the					A pointer to a pthread_attr_t structure that specifies
-thread, such as joining or canceling.			attributes for the new thread, such as stack size,
-												scheduling policy, and detach state. If set to NULL,
-												the thread is created with default attributes.
+								    |				  |				|	     |
+                    A pointer to a pthread_t 			    |				  |				|	     |___________ void to arg it will
+		    variable where the function will		    |				  |				|			pass it to new thread.
+		    store the identifier of the 		    |				  |				|__ pointer to function, it will be
+                    newly created thread. This _____________________|				  |				       run it by the new thread.
+                    identifier can be used for							  |
+                    subsequent operations on the			A pointer to a pthread_attr_t structure that specifies
+                    thread, such as joining or canceling.		attributes for the new thread, such as stack size,
+									scheduling policy, and detach state. If set to NULL,
+									the thread is created with default attributes.
 
 ```
 this is simple example:
@@ -125,15 +125,15 @@ main thread is finish
     * Killing threads before they finish their work causes many problems, the worst of which is resource **leaks 'metadata thread' or zombie thread**.
     * So how we can wait all threads to finish without use `sleep()`. There a two functions can fix that, the first one is `pthread_join()` it told the main thread to wait each thread to finish execution.
     ```C
-							int pthread_join(pthread_t thread, void **value_ptr);
-														  |				   |
-		pthread_t variable when							  |				   |___________ the return value from the thread
-		store the identifier about the thread ____________|
+				int pthread_join(pthread_t thread, void **value_ptr);
+							      |		       |
+		pthread_t variable when			      |		       |___________ the return value from the thread
+		store the identifier about the thread ________|
     ```
     `pthread_detach()` it make the threads run separately from the main thread. You can't return data from detach thread or join it. The main thread doesn't wait, if the main thread ends the threads that weremade to run separately also end but without leaks on ***'metadata thread' or zombie thread***.
     ```C
-							int pthread_detach(pthread_t thread);
-															|_________ pthread_t variable when store the identifier about the thread.
+				int pthread_detach(pthread_t thread);
+								|_________ pthread_t variable when store the identifier about the thread.
     ```
 ##### 2/2. Data Races:
 - Data Races is a type of bug that occurs in concurrent systems when the behavior of software depends on the sequence or timing of uncontrollable events such as thread execution order. It happens when two or more threads (or processes) access shared data and try to change it simultaneously.
@@ -237,7 +237,7 @@ pthread_mutex_unlock(&mutex);
 		[source](https://www.geeksforgeeks.org/measure-execution-time-with-high-precision-in-c-c/)
 		in [subject PDF](../philosopher_sub.pdf) they want time in milliseconds, so we need to learn how to get it by gettimeofday function, we know gettimeofday() modifie in the timeval struct and put seconds in tv_sec and microseconds in tv_usec, so
 		```
-		seconds			-[ x 1000]->	milliseconds
+		seconds		-[ x 1000]->	milliseconds
 		microseconds	-[ / 1000]->	milliseconds
 		```
 		[source](https://stackoverflow.com/questions/10192903/time-in-milliseconds-in-c)
@@ -253,25 +253,25 @@ pthread_mutex_unlock(&mutex);
 ```C
 typedef struct s_philo
 {
-	int							id;             //philo id
-	int							num_eat;        //eating number
+	int					id;             //philo id
+	int					num_eat;        //eating number
 	pthread_mutex_t				*l_fork;        // mutex for left fork
 	pthread_mutex_t				*r_fork;        // mutext for rghit fork
 	struct s_data				*data;          // shared data
-	uint64_t					eat_time;       // eating time
+	uint64_t				eat_time;       // eating time
 	pthread_mutex_t				eat_mutex;      // mutext for eating
 }				t_philo;
 
 typedef struct s_data
 {
-	int					num_philo;              // philosopher number
-	uint64_t			time_die;               // time to die
-	int					time_eat;               // time to eat
-	int					time_sleep;             // time to sleep
-	int					num_eat;                // number for each philo should eating
-	int				    stop;                   // is anything haping to stop simulation like each philo ate the allowed number of meals
-	t_philo				*philo;                 // privet data for each philosopher
-	uint64_t			start;                  // start time
+	int			num_philo;              // philosopher number
+	uint64_t		time_die;               // time to die
+	int			time_eat;               // time to eat
+	int			time_sleep;             // time to sleep
+	int			num_eat;                // number for each philo should eating
+	int			stop;                   // is anything haping to stop simulation like each philo ate the allowed number of meals
+	t_philo			*philo;                 // privet data for each philosopher
+	uint64_t		start;                  // start time
 	pthread_mutex_t		*forks;                 // mutex for all forks
 	pthread_mutex_t		write_m;                // mutex for output
 	pthread_mutex_t		protect;                // mutex for protect some critical variables       
