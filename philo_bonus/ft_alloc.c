@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:04:17 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/30 17:09:25 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/02 10:08:52 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	cleanup(t_data *data, int s)
 	{
 		sem_close(data->sem_forks[i]);
 		sem_unlink(data->forks[i]);
+		free(data->forks[i]);
 		i++;
 	}
 	ft_exit(s);

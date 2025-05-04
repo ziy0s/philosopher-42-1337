@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 22:32:51 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/30 13:07:08 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/02 09:47:51 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strdup(const char *s1)
 	char	*p;
 
 	i = ft_strlen(s1);
-	p = malloc(i + 1);
+	p = ft_malloc(i + 1);
 	if (p == NULL)
 		return (NULL);
 	i = 0;

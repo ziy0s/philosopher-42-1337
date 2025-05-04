@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 05:00:09 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/30 15:17:50 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/02 09:59:10 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_data
 
 char	*ft_itoa(pid_t nbr);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*make_sem_name(const char *str);
+char	*ft_strdup(const char *s1);
 int		ft_atoi(const char *str);
 int		ft_strlen(const char *str);
 int		ft_intsize(int nbr);

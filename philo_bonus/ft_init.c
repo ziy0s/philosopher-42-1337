@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 05:10:18 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/30 16:47:54 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/04 09:44:07 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,6 @@ static t_philo	**init_philos(t_data *data)
 	return (philos);
 }
 
-char	*make_sem_name(const char *str)
-{
-	char	*name;
-	char	*ret;
-	int		size;
-	int		i;
-	int		j;
-
-	i = 0;
-	size = ft_intsize(getpid());
-	name = ft_malloc(sizeof(char) * (ft_strlen(str) + size + 2));
-	name[0] = '/';
-	j = 1;
-	while (str[i])
-	{
-		name[j] = str[i];
-		j++;
-		i++;
-	}
-	name[j] = '_';
-	j++;
-	ret = ft_strjoin(name, ft_itoa(getpid()));
-	return (ret);
-}
-
 static t_data	*init_args(char *v[], t_data *data)
 {
 	data->num_philos = ft_atoi(v[1]);
@@ -76,30 +51,44 @@ static t_data	*init_args(char *v[], t_data *data)
 	return (data);
 }
 
-t_data	*init_data(char *v[])
+static t_data	*ft_sem_init(t_data *data)
 {
-	t_data	*data;
-	int		i;
-	int		flag;
+	int	i;
+	int	flag;
 
-	data = ft_malloc(sizeof(t_data));
-	data = init_args(v, data);
-	data->sem_forks = (sem_t **)ft_malloc(sizeof(sem_t *) * data->num_philos);
-	data->forks = ft_malloc(sizeof(char *) * data->num_philos);
-	(1) && (i = 0, flag = O_CREAT | O_EXCL);
-	data->print = make_sem_name("print");
-	data->stop = make_sem_name("stop");
+	i = 0;
+	flag = O_CREAT | O_EXCL;
+	data->print = ft_strdup("/print");
+	data->stop = ft_strdup("/stop");
+	sem_unlink(data->print);
+	sem_unlink(data->stop);
 	while (i < data->num_philos)
 	{
-		data->forks[i] = make_sem_name(ft_itoa(i));
-		data->sem_forks[i] = sem_open(data->forks[i], flag, 0644, 1);
+		data->forks[i] = ft_strjoin("/fork", ft_itoa(i));
 		sem_unlink(data->forks[i]);
+		data->sem_forks[i] = sem_open(data->forks[i], flag, 0644, 1);
+		if (data->sem_forks[i] == SEM_FAILED)
+			cleanup(data, 1);
 		i++;
 	}
 	data->sem_print = sem_open(data->print, flag, 0644, 1);
 	data->sem_stop = sem_open(data->stop, flag, 0644, 0);
 	if (data->sem_print == SEM_FAILED || data->sem_stop == SEM_FAILED)
-		ft_exit(1);
+		cleanup(data, 1);
+	return (data);
+}
+
+t_data	*init_data(char *v[])
+{
+	t_data	*data;
+
+	data = ft_malloc(sizeof(t_data));
+	data = init_args(v, data);
+	data->sem_forks = (sem_t **)ft_malloc(sizeof(sem_t *) * data->num_philos);
+	data->forks = ft_malloc(sizeof(char *) * data->num_philos);
+	data = ft_sem_init(data);
+	if (data->sem_print == SEM_FAILED || data->sem_stop == SEM_FAILED)
+		cleanup(data, 1);
 	data->philos = init_philos(data);
 	data->start_time = get_time();
 	return (data);

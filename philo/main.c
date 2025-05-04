@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:39:03 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/01 15:01:45 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/02 16:25:16 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ uint64_t	get_time(void)
 	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
 }
 
-int	args(char *v[], t_data **ptr)
+static int	args(char *v[], t_data **ptr)
 {
 	(*ptr) = ft_malloc(sizeof(t_data));
 	if (!(*ptr))
@@ -46,7 +46,7 @@ int	args(char *v[], t_data **ptr)
 	return (0);
 }
 
-void	init_philo(t_data	**ptr)
+static void	init_philo(t_data	**ptr)
 {
 	t_data	*tmp;
 	int		i;
@@ -104,8 +104,10 @@ int	main(int c, char *v[])
 	else
 		if (args(v, &ptr))
 			return (1);
-	pthread_mutex_init(&ptr->write_m, NULL);
-	pthread_mutex_init(&ptr->protect, NULL);
+	if (pthread_mutex_init(&ptr->write_m, NULL) < 0)
+		return (ft_exit(1, NULL));
+	if (pthread_mutex_init(&ptr->protect, NULL) < 0)
+		return (ft_exit(1, NULL));
 	init_philo(&ptr);
 	if (creat_threads(&ptr) == 1)
 		return (ft_exit(1, ptr));

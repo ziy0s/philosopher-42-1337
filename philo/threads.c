@@ -6,25 +6,28 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:26:22 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/01 15:06:25 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/03 10:08:39 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*eating(void *arg)
+static void	*eating(void *arg)
 {
 	t_philo	*ptr;
 
 	ptr = (t_philo *)arg;
 	while (1)
 	{
-		pthread_mutex_lock(&ptr->data->protect);
-		if (ptr->data->stop)
+		if (ptr->data->num_philo == 1)
 		{
-			pthread_mutex_unlock(&ptr->data->protect);
-			break ;
+			pthread_mutex_lock(ptr->l_fork);
+			print_msg(ptr->data, ptr, "has taken a fork");
+			ft_usleep(ptr->data->time_die + 1);
+			pthread_mutex_unlock(ptr->l_fork);
+			return (NULL);
 		}
+		pthread_mutex_lock(&ptr->data->protect);
 		pthread_mutex_unlock(&ptr->data->protect);
 		if (ptr->data->num_eat != -1 && ptr->num_eat >= ptr->data->num_eat)
 			break ;
@@ -56,7 +59,7 @@ static int	all_eat(t_data *ptr, int all)
 		return (0);
 }
 
-void	*monitoring(void *arg)
+static void	*monitoring(void *arg)
 {
 	t_data	*ptr;
 	int		i;
@@ -101,13 +104,13 @@ int	creat_threads(t_data **tmp)
 	if (pthread_create(&monitor, NULL, &monitoring, ptr) != 0)
 		return (1);
 	pthread_join(monitor, NULL);
-	if (ptr->stop)
-		return (0);
 	i = 0;
 	while (i < ptr->num_philo)
 	{
-		pthread_join(thread[i], NULL);
+		pthread_detach(thread[i]);
 		i++;
 	}
+	while (!ptr->stop)
+		;
 	return (0);
 }

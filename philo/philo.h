@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:39:53 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/01 15:01:51 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/02 07:57:17 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ typedef struct s_data
 }				t_data;
 
 int			ft_atoi(const char *str);
-uint64_t	get_time(void);
-void		*ft_malloc(size_t size);
-int			print_msg(t_data *ptr, t_philo *phil, char *str);
-int			creat_threads(t_data **tmp);
-void		git_fork(t_philo *ptr);
-int			ft_strcmp(const char *s1, const char *s2);
-int			ft_usleep(useconds_t time);
-void		exc_job(t_philo *ptr);
 int			ft_exit(int i, t_data *ptr);
 int			get_args(char *v[], t_data **ptr);
+int			ft_usleep(useconds_t time);
+int			ft_strcmp(const char *s1, const char *s2);
+int			print_msg(t_data *ptr, t_philo *phil, char *str);
+int			creat_threads(t_data **tmp);
+uint64_t	get_time(void);
+void		*ft_malloc(size_t size);
+void		git_fork(t_philo *ptr);
+void		exc_job(t_philo *ptr);
 
 #endif

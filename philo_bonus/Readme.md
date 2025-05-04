@@ -73,6 +73,7 @@ The IPC (Inter-Process Communication) is a set of methods for processes to :
 		|_ i += 1
 		```
 - Critical Section: is the code between sem_wait and sem_post
+- We use `sem_open()` function to open file in `/dev/shm/` to allowed multiple process to access same semaphore, we need to add `sem_unlink()` to removet from system after close it.
 [source](https://www.geeksforgeeks.org/semaphores-in-process-synchronization/)
 
 3. #### diff between threads and processes
@@ -99,7 +100,7 @@ The IPC (Inter-Process Communication) is a set of methods for processes to :
 5. #### How to work with time in C
 - We have multiple function can use it for working with time in C lang, like time(), *gettimeofday()*, clock_gettime(), *usleep()* and sleep() ....
 - We have the **gettimeofday()** and **usleep()** in the allowed functions, so let's see how we can work with time using this function :
-	* gettimeofday(): it's can get the time and the time zone. we give it a <mark>struct timeval</mark> and <mark>struct timezone</mark> by reference, it will modifie it and restore the info about time.
+	* gettimeofday(): it's can get the time and the time zone. we give it a <mark>struct timeval</mark> and <mark>struct timezone</mark> by reference, it will modifie it and restore the info about time. it give time from 1970 to now by seconds and microseconds '*microsecond for the rest of the second*'
 		+ struct timeval: it's a struct contains a two variables, **tv_sec** as a long it's the seconds and **tv_usec** as a int it's the microseconds. it return 0 for success and -1 for error.
 		[source](https://www.geeksforgeeks.org/measure-execution-time-with-high-precision-in-c-c/)
 		in [subject PDF](../philosopher_sub.pdf) they want time in milliseconds, so we need to learn how to get it by gettimeofday function, we know gettimeofday() modifie in the timeval struct and put seconds in tv_sec and microseconds in tv_usec, so

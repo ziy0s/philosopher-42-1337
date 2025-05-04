@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 04:59:53 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/30 17:10:44 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/03 07:17:59 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	monitored(t_philo *philo)
 		if (time > philo->data->time_to_die)
 		{
 			sem_wait(philo->data->sem_print);
-			printf("%lld\t%d die\n", get_time() - philo->data->start_time,
+			printf("%lld\t%d died\n", get_time() - philo->data->start_time,
 				philo->id);
 			sem_post(philo->data->sem_stop);
 			ft_exit(0);

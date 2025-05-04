@@ -6,16 +6,15 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:04:17 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/01 15:01:34 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/02 10:20:17 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#define MAX 2000000
 
 static void	my_ft_free(void *ptr, int flag)
 {
-	static void		*lst[MAX];
+	static void		*lst[INT_MAX];
 	static int		i;
 	int				j;
 

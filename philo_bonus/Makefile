@@ -8,7 +8,7 @@ OBJ=$(MDR:%.c=%.o)
 
 CFLAG= -Wall -Wextra -Werror -pthread
 
-all: $(NAME) clean
+all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAG) $(OBJ) -o $(NAME)
