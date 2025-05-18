@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:39:03 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/16 14:17:21 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/18 09:29:21 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,10 @@ void	git_fork(t_philo *ptr)
 	print_msg(ptr->data, ptr, "has taken a fork");
 }
 
-void f()
-{
-	system("leaks philo");
-}
 int	main(int c, char *v[])
 {
 	t_data	*ptr;
-	// atexit(f);
+
 	ptr = NULL;
 	if (c < 5 || c > 6)
 	{
