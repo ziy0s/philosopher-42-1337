@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 05:00:09 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/02 09:59:10 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/16 09:11:42 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				pid;
+	int				flag;
 	int				num_eats;
 	int64_t			eat_time;
 	struct s_data	*data;
@@ -65,5 +66,6 @@ void	cleanup(t_data *data, int s);
 void	monitored(t_philo *philo);
 void	start_simulation(t_data *data);
 void	*monitor_stop(void *arg);
+void	wait_philosophers(t_data *data);
 
 #endif

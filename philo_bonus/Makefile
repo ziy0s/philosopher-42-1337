@@ -2,7 +2,7 @@ NAME= philo_bonus
 
 CC= cc
 
-MDR= main.c ft_time.c ft_simulation.c ft_output.c ft_init.c ft_atoi.c ft_alloc.c ft_utils.c ft_utils_.c
+MDR= main.c ft_time.c ft_simulation.c ft_output.c ft_init.c ft_atoi.c ft_alloc.c ft_utils.c ft_itoa.c
 
 OBJ=$(MDR:%.c=%.o)
 
@@ -20,6 +20,6 @@ clean:
 	rm -rif $(OBJ)
 
 fclean: clean
-	rm $(NAME)
+	rm -rif $(NAME)
 
 re: fclean all

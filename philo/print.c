@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ziyos <ziyos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 22:14:27 by zaissi            #+#    #+#             */
-/*   Updated: 2025/04/11 18:28:35 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/17 12:57:51 by ziyos            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "philo.h"
 
@@ -25,5 +25,18 @@ int	print_msg(t_data *ptr, t_philo *phil, char *str)
 	if (!ft_strcmp("died", str))
 		return (0);
 	pthread_mutex_unlock(&ptr->write_m);
+	return (1);
+}
+
+int	free_threads(pthread_t *threads, int nuber_of_threads)
+{
+	int	i;
+
+	i = 0;
+	while (i < nuber_of_threads)
+	{
+		pthread_detach(threads[i]);
+		i++;
+	}
 	return (1);
 }

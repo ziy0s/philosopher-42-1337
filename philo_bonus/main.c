@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 04:59:53 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/03 07:17:59 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/16 09:12:44 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	monitored(t_philo *philo)
 	while (1)
 	{
 		time = get_time() - philo->eat_time;
-		if (time > philo->data->time_to_die)
+		if (time > philo->data->time_to_die && !philo->flag)
 		{
 			sem_wait(philo->data->sem_print);
 			printf("%lld\t%d died\n", get_time() - philo->data->start_time,
@@ -84,4 +84,5 @@ int	main(int argc, char **argv)
 	start_simulation(data);
 	wait_philosophers(data);
 	cleanup(data, 0);
+	return (0);
 }

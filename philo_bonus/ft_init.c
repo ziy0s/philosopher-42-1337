@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 05:10:18 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/04 09:44:07 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/16 09:11:28 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static t_philo	**init_philos(t_data *data)
 	{
 		philos[i] = ft_malloc(sizeof(t_philo));
 		philos[i]->id = i + 1;
+		philos[i]->flag = 0;
 		philos[i]->num_eats = 0;
 		philos[i]->eat_time = 0;
 		philos[i]->data = data;

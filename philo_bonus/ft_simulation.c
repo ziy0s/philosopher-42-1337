@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 06:35:20 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/04 09:44:23 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/16 09:12:14 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,19 @@ static void	simulation(t_philo *philo)
 
 	philo->eat_time = get_time();
 	if (pthread_create(&mutex, NULL, (void *)monitored, philo) != 0)
-		ft_exit(1);
+		return (wait_philosophers(philo->data), ft_exit(1));
 	if (pthread_detach(mutex) != 0)
-		ft_exit(1);
+		return (wait_philosophers(philo->data), ft_exit(1));
 	while (1)
 	{
 		get_forks(philo);
 		philo->eat_time = get_time();
 		print_message(philo, "is eating");
 		philo->num_eats++;
+		philo->flag = 1;
 		ft_usleep(philo->data->time_to_eat);
 		release_forks(philo);
+		philo->flag = 0;
 		if (philo->num_eats == philo->data->num_meals)
 			break ;
 		print_message(philo, "is sleeping");
@@ -67,7 +69,11 @@ void	start_simulation(t_data *data)
 	{
 		data->philos[i]->pid = fork();
 		if (data->philos[i]->pid < 0)
+		{
+			wait_philosophers(data);
+			write(2, "fork faild ", 12);
 			ft_exit(1);
+		}
 		else if (data->philos[i]->pid == 0)
 		{
 			simulation(data->philos[i]);
@@ -76,7 +82,7 @@ void	start_simulation(t_data *data)
 		i++;
 	}
 	if (pthread_create(&stop_thread, NULL, monitor_stop, data) < 0)
-		ft_exit(1);
+		return (wait_philosophers(data), ft_exit(1));
 	if (pthread_detach(stop_thread) < 0)
-		ft_exit(1);
+		return (wait_philosophers(data), ft_exit(1));
 }

@@ -8,9 +8,11 @@
 > #### 2. Learn [ℹ️](#2-learn)
 > #### 3. Program work strategy and start coding ;) [ℹ️](#3-program-work-strategy-and-start-coding-)
 
+[resoult](.img/resoult.png)
+
 ## 1. What we should to do ?
 first we need to know what we should to do it , we can't work without this !.
-Okey , let's starting with the [subject](../philosopher_sub.pdf). We need to build a program inspired by <mark>Dining Philosopher Problem</mark> [ℹ️](#philosopher). The program should accept four or five args
+Okey , let's starting with the [subject](./philosopher_sub.pdf). We need to build a program inspired by <mark>Dining Philosopher Problem</mark> [ℹ️](#philosopher). The program should accept four or five args
 `[number of philosopher] [time to die] [time to sleep] [time to die] '[number of meals]'`, time in milliseconds, and the output is most be like this :
 ```
 [time after program run in ms]    [philo id] has taken a fork
@@ -30,7 +32,7 @@ Okey , let's starting with the [subject](../philosopher_sub.pdf). We need to bui
 A displayed state message should not be mixed up with another message and
 ### **<mark>Your program must not have any [data races](#data_races)!!!!!!!</mark>**
 I recommend reading the subject for full understanding of the requirements and rules
-[mandatory](../.img/mandatory.png)
+[mandatory](./.img/mandatory.png)
 
 ## 2. Learn
 
@@ -44,7 +46,7 @@ I recommend reading the subject for full understanding of the requirements and r
 #### 1. What is the dining philosopher problem ?
 
 ##### 1/1. Dining Philosopher Problem:
-![Dining Philosopher Problem](../.img/Dining_philosophers_diagram.jpg)
+![Dining Philosopher Problem](.img/Dining_philosophers_diagram.jpg)
 - The dining philosopher problem is an example problem '**at the operating systems level**' often used in concurrent algorithm design to illustrate synchronization issues and techniques for resolving them.
 it's talks about five philosophers sitting around a round table. Each philosopher has one fork, and in the middle of the table there is a plate of spaghetti. In order for a philosopher to eat, he must borrow the fork of the philosopher next to him. This brings us to a new concept: **Deadlock**
 - Each philosopher can eat, then sleep, then think. They share the time for sleeping, eating, and the time at which one might die from starvation.

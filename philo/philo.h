@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ziyos <ziyos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:39:53 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/02 07:57:17 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/17 12:57:34 by ziyos            ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -23,6 +23,7 @@
 typedef struct s_philo
 {
 	int							id;
+	int							flag;
 	int							num_eat;
 	pthread_mutex_t				*l_fork;
 	pthread_mutex_t				*r_fork;
@@ -47,6 +48,7 @@ typedef struct s_data
 }				t_data;
 
 int			ft_atoi(const char *str);
+int			free_threads(pthread_t *threads, int nuber_of_threads);
 int			ft_exit(int i, t_data *ptr);
 int			get_args(char *v[], t_data **ptr);
 int			ft_usleep(useconds_t time);

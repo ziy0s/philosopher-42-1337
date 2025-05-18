@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 15:26:22 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/03 10:08:39 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/18 09:16:05 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	*eating(void *arg)
 	t_philo	*ptr;
 
 	ptr = (t_philo *)arg;
+	if (ptr->id % 2 == 0)
+		usleep(200);
 	while (1)
 	{
 		if (ptr->data->num_philo == 1)
@@ -27,8 +29,6 @@ static void	*eating(void *arg)
 			pthread_mutex_unlock(ptr->l_fork);
 			return (NULL);
 		}
-		pthread_mutex_lock(&ptr->data->protect);
-		pthread_mutex_unlock(&ptr->data->protect);
 		if (ptr->data->num_eat != -1 && ptr->num_eat >= ptr->data->num_eat)
 			break ;
 		git_fork(ptr);
@@ -72,16 +72,15 @@ static void	*monitoring(void *arg)
 		while (++i < ptr->num_philo)
 		{
 			pthread_mutex_lock(&ptr->philo[i].eat_mutex);
-			if (get_time() - ptr->philo[i].eat_time > ptr->time_die)
+			if ((get_time() - ptr->philo[i].eat_time > ptr->time_die)
+				&& !ptr->philo[i].flag)
 				return (if_dead(ptr, i), NULL);
-			pthread_mutex_unlock(&ptr->philo[i].eat_mutex);
 			if (ptr->num_eat != -1)
 			{
-				pthread_mutex_lock(&ptr->philo[i].eat_mutex);
 				if (ptr->philo[i].num_eat < ptr->num_eat)
 					all = 0;
-				pthread_mutex_unlock(&ptr->philo[i].eat_mutex);
 			}
+			pthread_mutex_unlock(&ptr->philo[i].eat_mutex);
 		}
 		if (all_eat(ptr, all))
 			return (NULL);
@@ -97,12 +96,14 @@ int	creat_threads(t_data **tmp)
 
 	ptr = *tmp;
 	thread = ft_malloc(sizeof(pthread_t) * ptr->num_philo);
+	if (!thread)
+		return (1);
 	i = -1;
 	while (++i < ptr->num_philo)
 		if (pthread_create(&thread[i], NULL, &eating, &ptr->philo[i]) != 0)
-			return (1);
+			return (free_threads(thread, i));
 	if (pthread_create(&monitor, NULL, &monitoring, ptr) != 0)
-		return (1);
+		return (free_threads(thread, i));
 	pthread_join(monitor, NULL);
 	i = 0;
 	while (i < ptr->num_philo)

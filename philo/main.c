@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:39:03 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/02 16:25:16 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/16 14:17:21 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,55 +46,49 @@ static int	args(char *v[], t_data **ptr)
 	return (0);
 }
 
-static void	init_philo(t_data	**ptr)
+static int	init_philo(t_data	**ptr)
 {
 	t_data	*tmp;
 	int		i;
 
-	tmp = *ptr;
-	i = 0;
+	(1) && (i = 0, tmp = *ptr);
 	tmp->forks = ft_malloc(sizeof(pthread_mutex_t) * tmp->num_philo);
+	if (!tmp->forks)
+		return (1);
 	while (i < tmp->num_philo)
 	{
-		pthread_mutex_init(&tmp->forks[i], NULL);
-		i++;
-	}
-	i = 0;
-	while (i < tmp->num_philo)
-	{
+		if (pthread_mutex_init(&tmp->forks[i], NULL) != 0)
+			return (ft_exit(1, NULL));
 		tmp->philo[i].id = i + 1;
+		tmp->philo[i].flag = 0;
 		tmp->philo[i].l_fork = &tmp->forks[i];
 		tmp->philo[i].r_fork = &tmp->forks[(i + 1) % tmp->num_philo];
 		tmp->philo[i].data = tmp;
 		tmp->philo[i].num_eat = 0;
-		pthread_mutex_init(&tmp->philo[i].eat_mutex, NULL);
+		if (pthread_mutex_init(&tmp->philo[i].eat_mutex, NULL) != 0)
+			return (ft_exit(1, NULL));
 		tmp->philo[i].eat_time = get_time();
 		i++;
 	}
+	return (0);
 }
 
 void	git_fork(t_philo *ptr)
 {
-	if (ptr->id % 2 == 0)
-	{
-		print_msg(ptr->data, ptr, "has taken a fork");
-		pthread_mutex_lock(ptr->l_fork);
-		pthread_mutex_lock(ptr->r_fork);
-		print_msg(ptr->data, ptr, "has taken a fork");
-	}
-	else
-	{
-		print_msg(ptr->data, ptr, "has taken a fork");
-		pthread_mutex_lock(ptr->r_fork);
-		pthread_mutex_lock(ptr->l_fork);
-		print_msg(ptr->data, ptr, "has taken a fork");
-	}
+	pthread_mutex_lock(ptr->l_fork);
+	print_msg(ptr->data, ptr, "has taken a fork");
+	pthread_mutex_lock(ptr->r_fork);
+	print_msg(ptr->data, ptr, "has taken a fork");
 }
 
+void f()
+{
+	system("leaks philo");
+}
 int	main(int c, char *v[])
 {
 	t_data	*ptr;
-
+	// atexit(f);
 	ptr = NULL;
 	if (c < 5 || c > 6)
 	{
@@ -108,7 +102,8 @@ int	main(int c, char *v[])
 		return (ft_exit(1, NULL));
 	if (pthread_mutex_init(&ptr->protect, NULL) < 0)
 		return (ft_exit(1, NULL));
-	init_philo(&ptr);
+	if (init_philo(&ptr))
+		return (1);
 	if (creat_threads(&ptr) == 1)
 		return (ft_exit(1, ptr));
 	return (ft_exit(0, ptr));
