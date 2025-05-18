@@ -6,7 +6,7 @@
 /*   By: zaissi <zaissi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 12:36:54 by zaissi            #+#    #+#             */
-/*   Updated: 2025/05/18 09:18:09 by zaissi           ###   ########.fr       */
+/*   Updated: 2025/05/18 16:24:47 by zaissi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ void	exc_job(t_philo *ptr)
 	ptr->eat_time = get_time();
 	ptr->num_eat++;
 	ptr->flag = 1;
+	pthread_mutex_unlock(&ptr->eat_mutex);
 	print_msg(ptr->data, ptr, "is eating");
 	ft_usleep(ptr->data->time_eat);
+	pthread_mutex_lock(&ptr->eat_mutex);
 	ptr->flag = 0;
 	pthread_mutex_unlock(&ptr->eat_mutex);
 	pthread_mutex_unlock(ptr->l_fork);
