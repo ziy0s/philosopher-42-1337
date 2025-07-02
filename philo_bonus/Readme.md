@@ -2,12 +2,12 @@
 
 ## TASKS
 
-> #### 1. What we should to do ? [ℹ️](#1-what-we-should-to-do-)
+> #### 1. what should we do ? [ℹ️](#1-what-we-should-to-do-)
 > #### 2. Learn [ℹ️](#2-learn)
 > #### 3. Program work strategy and start coding ;)[ℹ️](#3-program-work-strategy-and-start-coding-)
 
 <!-- <a id="task1"></a> -->
-## 1. What we should to do ?
+## 1. what should we do ?
 first we need to know what we should to do it , we can't work without this !.
 Okey , let't starting with the [subject](../philosopher_sub.pdf) exactly on the bonus part ![bonus part](../.img/bonus_part.png)
 - The program, source code and Makefile it's moust be in `philo_bonus` directory on home working directory !
