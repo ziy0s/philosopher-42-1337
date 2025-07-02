@@ -4,14 +4,14 @@
 
 ## TASKS
 
-> #### 1. What we should to do ? [ℹ️](#1-what-we-should-to-do-)
+> #### 1. what should we do ? [ℹ️](#1-what-we-should-to-do-)
 > #### 2. Learn [ℹ️](#2-learn)
 > #### 3. Program work strategy and start coding ;) [ℹ️](#3-program-work-strategy-and-start-coding-)
 
 [resoult](.img/resoult.png)
 
-## 1. What we should to do ?
-first we need to know what we should to do it , we can't work without this !.
+## 1. what should we do ?
+first we need to know what should we do it , we can't work without this !.
 Okey , let's starting with the [subject](./philosopher_sub.pdf). We need to build a program inspired by <mark>Dining Philosopher Problem</mark> [ℹ️](#philosopher). The program should accept four or five args
 `[number of philosopher] [time to die] [time to sleep] [time to die] '[number of meals]'`, time in milliseconds, and the output is most be like this :
 ```
@@ -36,7 +36,7 @@ I recommend reading the subject for full understanding of the requirements and r
 
 ## 2. Learn
 
-* Through [what we should to do](#1-what-we-should-to-do-), we need to learn and become familiar with several concepts, and among the most important are:
+* Through [what should we do ?](#1-what-should-we-do), we need to learn and become familiar with several concepts, and among the most important are:
     - **1 -> What is the dining philosopher problem ?**
     - **2 -> What is thread ?**
     - **3 -> What is Mutex ?**
